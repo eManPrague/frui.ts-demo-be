@@ -1,1 +1,1 @@
-api: yarn build && yarn start:prod
+api: yarn start:prod

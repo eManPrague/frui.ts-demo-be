@@ -1,4 +1,5 @@
 {
+  "name": "fruits-demo",
   "scripts": {
     "postdeploy": "yarn typeorm:run"
   }

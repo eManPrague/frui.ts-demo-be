@@ -59,7 +59,7 @@ export class ConfigService {
   getTypeOrmConfig(): TypeOrmModuleOptions {
     return {
       type: "postgres",
-      host: this.getValue("DATABASE_URL"),
+      host: this.getValue("DATABASE_HOST"),
       port: parseInt(this.getValue("DATABASE_PORT"), 10),
       username: this.getValue("DATABASE_USERNAME", false),
       password: this.getValue("DATABASE_PASSWORD", false),
@@ -93,7 +93,7 @@ export class ConfigService {
 }
 
 const configService = new ConfigService().ensureValues([
-  "DATABASE_URL",
+  "DATABASE_HOST",
   "DATABASE_PORT",
   "DATABASE_NAME",
   "SESSION_NAME",

@@ -42,7 +42,7 @@ export const createTestApp = async (override: { [key: string]: any } = {}) => {
 export const createUserAgent = async (app: any, user: User, password: string): Promise<request.SuperTest<request.Test>> => {
   const agent = request.agent(app.getHttpServer());
 
-  const resp = await agent.post("/portal/session").send({
+  const resp = await agent.post("/session").send({
     email: user.email,
     password,
   });

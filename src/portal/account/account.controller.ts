@@ -10,7 +10,7 @@ export default class AccountController {
   list() {
     const resp = [];
 
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < parseInt(`${Math.random() * 100}`); i++) {
       resp.push({
         id: i,
         name: `custom account - ${i}`,
@@ -24,33 +24,37 @@ export default class AccountController {
   @ApiOperation({ summary: "Account detail with operations" })
   @Get(":id")
   detail(@Param("id", new ParseIntPipe()) id: number) {
-    if (id < 0 || id >= 20) {
-      throw new HttpException("Invoice not found.", HttpStatus.NOT_FOUND);
-    }
-
     return this.generateAccount(id);
   }
 
   @ApiOperation({ summary: "Account detail with operations" })
   @Get("special/:id")
   detailWithError(@Param("id") id: number) {
-    if (Math.random() < 0.5) {
+    return this.generateAccount(id, true);
+  }
+
+  private generateAccount(id: number, randomize = false) {
+    const operations = [];
+
+    // Sometimes crashes...
+    if (Math.random() <= 0.3) {
       throw new HttpException("Account not found.", 404);
     }
 
-    return this.generateAccount(id);
-  }
+    if (Math.random() <= 0.2) {
+      throw new HttpException("Account not found.", HttpStatus.BAD_REQUEST);
+    }
 
-  private generateAccount(id: number) {
-    const operations = [];
+    // Empty account?
+    if (Math.random() > 0.5) {
+      for (let i = 0; i < parseInt(`${Math.random() * 100}`); i++) {
+        const type = Math.random() < 0.5 ? "income" : "outcome";
 
-    for (let i = 0; i < 30; i++) {
-      const type = Math.random() < 0.5 ? "income" : "outcome";
-
-      operations.push({
-        type,
-        amount: parseInt(`${Math.random() * 10000}`),
-      });
+        operations.push({
+          type,
+          amount: parseInt(`${Math.random() * 10000}`),
+        });
+      }
     }
 
     return {

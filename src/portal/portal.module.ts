@@ -9,7 +9,9 @@ import { Session } from "./session/session.entity";
 import { Repository } from "typeorm";
 import { TypeormStore } from "./session/typeorm_store.service";
 import UserModule from "./user/user.module";
-import AccountModule from "./account/account.module";
+import CategoryModule from "./category/category.module";
+import EnumModule from "./enum/enum.module";
+import PaymentModule from "./payment/payment.module";
 
 @Module({
   imports: [
@@ -33,7 +35,9 @@ import AccountModule from "./account/account.module";
     }),
     SessionModule,
     UserModule,
-    AccountModule,
+    CategoryModule,
+    EnumModule,
+    PaymentModule,
   ],
 })
 export default class PortalModule {}

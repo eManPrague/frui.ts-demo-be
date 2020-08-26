@@ -17,7 +17,7 @@ export default class SessionModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(AuthMiddleware)
-      .exclude({ path: "portal/session", method: RequestMethod.POST })
+      .exclude({ path: "session", method: RequestMethod.POST })
       .forRoutes(SessionController);
   }
 }

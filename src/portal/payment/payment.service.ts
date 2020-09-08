@@ -38,4 +38,29 @@ export default class PaymentService {
 
     return instance.save();
   }
+
+  async update(userId: number, id: number, data: PaymentDto) {
+    const item = await this.paymentRepository.findOne({
+      where: { user_id: userId, id },
+    });
+
+    if (!item) {
+      throw new HttpException("Payment was not found.", HttpStatus.NOT_FOUND);
+    }
+
+    Object.assign(item, data);
+    return item.save();
+  }
+
+  async delete(userId: number, id: number) {
+    const item = await this.paymentRepository.findOne({
+      where: { user_id: userId, id },
+    });
+
+    if (!item) {
+      throw new HttpException("Payment was not found.", HttpStatus.NOT_FOUND);
+    }
+
+    return item.remove();
+  }
 }

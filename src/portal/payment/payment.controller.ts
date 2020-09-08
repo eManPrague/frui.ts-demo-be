@@ -1,4 +1,17 @@
-import { Controller, Post, Get, Inject, Body, UseInterceptors, Query, ParseIntPipe, HttpCode } from "@nestjs/common";
+import {
+  Controller,
+  Post,
+  Get,
+  Inject,
+  Body,
+  UseInterceptors,
+  Query,
+  ParseIntPipe,
+  HttpCode,
+  Put,
+  Delete,
+  Param,
+} from "@nestjs/common";
 import { ApiTags, ApiResponse, ApiOperation } from "@nestjs/swagger";
 
 import Payment from "./payment.entity";
@@ -30,5 +43,21 @@ export default class PaymentController {
   @HttpCode(201)
   create(@UserDecorator("id") userId, @Body() data: PaymentDto) {
     return this.paymentService.create(userId, data);
+  }
+
+  @ApiOperation({ summary: "Update payment" })
+  @Put(":id")
+  @ApiResponse({ status: 200 })
+  @HttpCode(200)
+  update(@UserDecorator("id") userId, @Param("id", new ParseIntPipe()) id: number, @Body() data: PaymentDto) {
+    return this.paymentService.update(userId, id, data);
+  }
+
+  @ApiOperation({ summary: "Destroy payment" })
+  @Delete(":id")
+  @ApiResponse({ status: 200 })
+  @HttpCode(200)
+  delete(@UserDecorator("id") userId, @Param("id", new ParseIntPipe()) id: number) {
+    return this.paymentService.delete(userId, id);
   }
 }

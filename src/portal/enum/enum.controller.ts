@@ -1,37 +1,7 @@
-import {
-  Controller,
-  Post,
-  Get,
-  Inject,
-  Body,
-  UseInterceptors,
-  ClassSerializerInterceptor,
-  SerializeOptions,
-  Delete,
-  Query,
-  ParseIntPipe,
-} from "@nestjs/common";
+import { Controller, Get } from "@nestjs/common";
 import { ApiTags, ApiResponse, ApiOperation, ApiProperty } from "@nestjs/swagger";
 import { PaymentType } from "../category/category.entity";
-
-class PaymentTypeDto {
-  @ApiProperty()
-  id: number;
-
-  @ApiProperty()
-  name: string;
-
-  @ApiProperty()
-  coefficient: number;
-}
-
-class EnumerationResponseDto {
-  @ApiProperty({
-    isArray: true,
-    type: PaymentTypeDto,
-  })
-  payment_types: PaymentTypeDto[];
-}
+import EnumerationResponseDto from "./enum.dto";
 
 @ApiTags("Enumerations")
 @Controller("enums")
